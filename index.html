@@ -1,67 +1,288 @@
 <!doctype html>
-<html>
-  <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="chrome=1">
-    <title>Simple.js by moonwave99</title>
-
-    <link rel="stylesheet" href="stylesheets/styles.css">
-    <link rel="stylesheet" href="stylesheets/pygment_trac.css">
-    <script src="javascripts/scale.fix.js"></script>
-    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
-    <!--[if lt IE 9]>
-    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
-    <![endif]-->
-  </head>
-  <body>
-    <div class="wrapper">
-      <header>
-        <h1 class="header">Simple.js</h1>
-        <p class="header">Client side [M]VC kept simple.</p>
-
-        <ul>
-          <li class="download"><a class="buttons" href="https://github.com/moonwave99/simple.js/zipball/master">Download ZIP</a></li>
-          <li class="download"><a class="buttons" href="https://github.com/moonwave99/simple.js/tarball/master">Download TAR</a></li>
-          <li><a class="buttons github" href="https://github.com/moonwave99/simple.js">View On GitHub</a></li>
-        </ul>
-
-        <p class="header">This project is maintained by <a class="header name" href="https://github.com/moonwave99">moonwave99</a></p>
-
-
-      </header>
-      <section>
-        <h3>Welcome to GitHub Pages.</h3>
-
-<p>This automatic page generator is the easiest way to create beautiful pages for all of your projects. Author your page content here using GitHub Flavored Markdown, select a template crafted by a designer, and publish. After your page is generated, you can check out the new branch:</p>
-
-<pre><code>$ cd your_repo_root/repo_name
-$ git fetch origin
-$ git checkout gh-pages
-</code></pre>
-
-<p>If you're using the GitHub for Mac, simply sync your repository and you'll see the new branch.</p>
-
-<h3>Designer Templates</h3>
-
-<p>We've crafted some handsome templates for you to use. Go ahead and continue to layouts to browse through them. You can easily go back to edit your page before publishing. After publishing your page, you can revisit the page generator and switch to another theme. Your Page content will be preserved if it remained markdown format.</p>
-
-<h3>Rather Drive Stick?</h3>
-
-<p>If you prefer to not use the automatic generator, push a branch named <code>gh-pages</code> to your repository to create a page manually. In addition to supporting regular HTML content, GitHub Pages support Jekyll, a simple, blog aware static site generator written by our own Tom Preston-Werner. Jekyll makes it easy to create site-wide headers and footers without having to copy them across every page. It also offers intelligent blog support and other advanced templating features.</p>
-
-<h3>Authors and Contributors</h3>
-
-<p>You can <a href="https://github.com/blog/821" class="user-mention">@mention</a> a GitHub username to generate a link to their profile. The resulting <code>&lt;a&gt;</code> element will link to the contributor's GitHub Profile. For example: In 2007, Chris Wanstrath (<a href="https://github.com/defunkt" class="user-mention">@defunkt</a>), PJ Hyett (<a href="https://github.com/pjhyett" class="user-mention">@pjhyett</a>), and Tom Preston-Werner (<a href="https://github.com/mojombo" class="user-mention">@mojombo</a>) founded GitHub.</p>
-
-<h3>Support or Contact</h3>
-
-<p>Having trouble with Pages? Check out the documentation at <a href="http://help.github.com/pages">http://help.github.com/pages</a> or contact <a href="mailto:support@github.com">support@github.com</a> and we’ll help you sort it out.</p>
-      </section>
-      <footer>
-        <p><small>Hosted on <a href="https://pages.github.com">GitHub Pages</a> using the Dinky theme</small></p>
-      </footer>
-    </div>
-    <!--[if !IE]><script>fixScale(document);</script><![endif]-->
+<html lang="en">
+	<head>
+		<meta charset="utf-8"/>
+		<meta name="author" content="Diego Caponera"/>
+		<meta name="description" content="A lot of nice JS frameworks blossomed lately - from shiny Backbone to Angular to Knockout - and they are going to get all the scene soon for sure. But sometimes I need a tradeoff solution between a full stack and the $ jungle of messed jQuery calllbacks - think about little enhancements to a basically plain html website like plugin setup, opening modals, handling simple client-side templating."/>
+		<title>simple.js | client side [M]VC kept simple.</title>
+		<link rel="stylesheet" href="css/bootstrap.min.css" type="text/css"/>
+		<link rel="stylesheet" href="css/prettify.css" type="text/css"/>
+		<style type="text/css">
 		
-  </body>
+			.container{
+				margin-top:60px;
+			}
+
+			.footer{
+				margin-top: 45px;
+				padding: 35px 0 36px;
+				border-top: 1px solid #E5E5E5;
+			}
+
+			.strike{
+				text-decoration:line-through;
+			}
+
+			#examples{
+				margin-bottom:15px;
+			}
+
+			.third{
+				float:left;
+				width:260px;
+				height:120px;
+				margin:0 10px 0 0;
+			}
+
+			.clickable:hover{ cursor:pointer; }
+
+			#widget{
+				height:17px;
+				background-color:#05c;
+				color:white;
+				opacity:0.2;
+				padding:18px;
+				margin-bottom:10px;
+				text-align:center;
+			}		
+		
+		</style>
+	</head>
+	<body onload="prettyPrint()">
+
+		<div id="main" class="container">
+
+			<h1 class="page-header">simple.js <small>client side <span class="strike">M</span>VC* kept simple.</small></h1>
+
+			<p>A lot of nice JS frameworks blossomed lately - from shiny <a href="http://backbonejs.org/">Backbone</a> to <a href="http://angularjs.org/">Angular</a> to <a href="http://knockoutjs.com/">Knockout</a> - and they are going to get all the scene soon for sure. But sometimes I need a tradeoff solution between a full stack and the $ jungle of messed jQuery calllbacks - think about little enhancements to a basically plain html website like plugin setup, opening modals, handling simple client-side templating.</p>
+			<p>Long story short, I refactored <a href="http://viget.com/inspire/extending-paul-irishs-comprehensive-dom-ready-execution">Jason Garber implementation</a> of <a href="http://paulirish.com/2009/markup-based-unobtrusive-comprehensive-dom-ready-execution/">Paul Irish idea</a>, and here we are. Many thanks to <a href="http://ejohn.org/blog/simple-javascript-inheritance/">John Resig's inheritance snippet</a> as well.</p>
+			<p>
+				<a href="https://github.com/moonwave99/simple.js" class="btn btn-large btn-primary">Fork on Github</a>
+			</p>			
+			<p><small>* The stroke over the M stands for no model handling - stick with backbone.js &amp; friends for it please!</small></p>
+
+			<h2 class="page-header">Live Example</h2>
+			<div class="clearfix" id="examples">
+
+				<div class="well third">
+					<h3>Startup Events</h3>
+					<div id="widget" data-controller="widgets" data-startup></div>
+					<button data-controller="widgets" data-action="fadein" class="btn btn-mini">Perform again</button>
+				</div>
+
+				<div class="well third">
+					<h3>Click Events</h3>
+					<p><button data-controller="buttons" data-action="buttons" class="btn btn-mini">I am a bounded button</button></p>
+					<p><a href="#" data-controller="buttons" data-action="links">I am a bounded link</a></p>
+					<p><span class="clickable" data-controller="buttons" data-action="clickable">I am a bounded clickable element</span></p>
+				</div>
+
+				<form action="#" data-controller="buttons" data-action="forms" class="well third">
+					<h3>Forms</h3>
+					<input type="text" name="name" required placeholder="Your name"/>
+					<input type="submit" value="Say Hello!" class="btn btn-primary"/>
+				</form>
+
+			</div>
+			<p>Inspect the code and check the JS script at the end of this document source.</p>
+
+			<h2 class="page-header">Installation and Usage</h2>
+			<p>1. Import good ol' <a href="http://www.jquery.com">jQuery</a> and the script:</p>
+			<pre class="prettyprint linenums lang-html">
+&lt;script src=&quot;https://ajax.googleapis.com/ajax/libs/jquery/x.x.x/jquery.min.js&quot;&gt;&lt;/script&gt;
+&lt;script src=&quot;js/simple.js&quot;&gt;&lt;/script&gt;</pre>
+
+			<p>2. Define controllers and actions [in a <code>script</code> tag or a separate file better]:</p>
+			<pre class="prettyprint linenums lang-js">
+$(document).ready(function(){
+
+  var router = new Router();
+  router.setControllers({
+
+    fooController : Controller.extend({
+
+      fooAction : function(anElement){
+        //your awesome code here
+      },
+
+      barAction : function(theElement){
+        //your awesome code here
+      },
+
+    }),
+
+    barController : Controller.extend({
+      ...
+    }),
+
+    ...
+
+  });
+
+});					</pre>
+
+			<p>3. Bind them to the DOM:</p>
+			<pre class="prettyprint linenums lang-html">
+&lt;a href=&quot;#&quot; data-controller=&quot;fooController&quot; data-action=&quot;barAction&quot;&gt;I am bound to an action!&lt;/a&gt;</pre>
+
+			<p>That's it - all the <code>&lt;a/&gt;</code>, <code>&lt;button/&gt;</code>, <code>&lt;form/&gt;</code> are bound to a JS action if they feature a <code>data-controller</code> / <code>data-action</code> attribute pair: click events [or submit in the form case] are intercepted and the action is fired*.</p>
+			<p><strong>Tip</strong>: you may also fire an action click-wise by binding it to a <code>.clickable</code> element of your choice.</p>
+
+			<p>You get a reference to the DOM element just clicked as the action parameter [<code>anElement</code> / <code>theElement</code> above] so you can interact with it - for example setting loading status, disabling a button, and so. Notice that when submitting a form, the whole <code>form</code> element is passed and not just the submit button.</p>
+
+			<p><small>* simple.js <a href="http://api.jquery.com/event.preventDefault/">prevents default browser behavior</a>.</small></p>
+
+			<h3>Startup Actions</h3>
+			<p>Sometimes you just need to execute an action on document load - for example the setup of a datepicker widget, or a picture carousel: you just add the <code>data-startup</code> attribute to the DOM element you're binding the action to:</p>
+			<pre class="prettyprint linenums lang-html">&lt;div id=&quot;myAwesomeWidget&quot; data-controller=&quot;widgets&quot; data-action=&quot;datepicker&quot; data-startup&gt;&lt;/div&gt;</pre>
+			<pre class="prettyprint linenums lang-js">
+...
+
+widgets : Controller.extend({
+
+  datepicker : function(widget){
+    $(widget).someDatePickerPlugin( { ... } );
+  },
+
+...	</pre>
+			<p>Et voilà, action is executed when page loads.</p>
+			
+			<p>There is a default <code>startup</code> action in the <code>Controller</code> class that keeps track of the main DOM element it is tied to, so you can access to it later: such reference is stored in <code>this._element</code> inside the Controller.</p>
+			
+			<pre class="prettyprint linenums lang-js">
+awesomeWidget : Controller.extend({
+
+  startup : function(widget){
+    //You need to invoke the parent method in order to save the reference
+    this._super(widget);
+    
+    // Your awesome widget setup here
+
+  },
+
+  selectAll : function(button){
+    $('.awesomeItem', this._element).addClass('selected');
+  },
+
+  saveChanges : function(button){
+	
+    $(button).addClass('loading');
+
+    $.post('path/to/resource', { foo : bar }, function(data){
+      $(button).removeClass('loading');	
+    });	
+
+  },
+
+...	</pre>			
+						
+			<p>This is useful when you set up a widget and you need to reference to it again later, decoupling the logic from DOM selectors as much as possible. Of course you are going to perform DOM selections inside your actions, but you can narrow your scope to <code>this._element</code>:</p>
+		
+			<h3>Reusing Actions</h3>
+			<p>What about firing actions inside other actions? Just call <code>router.exec()</code>* method:</p>
+			<pre class="prettyprint linenums lang-js">
+...
+
+someController : Controller.extend({
+
+  someAction : function(trigger){
+    router.exec('someOtherController', 'someOtherAction', trigger);
+  },
+
+...	</pre>			
+			<p><small>* <i>router</i> is the name you gave to the Router instance in your code.</small></p>
+			<p>Notice that you are passing a different <code>trigger</code> to the action by all chance: if you plan to reuse actions much, you are looking for wider solution for sure.</p>
+			
+			<h2 class="">License</h2>
+			<p>Copyright (c) 2012 Diego Caponera</p>
+
+			<p>Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:</p>
+
+			<p>The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.</p>
+
+			<p>THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.</p>				
+			
+			<footer class="footer">
+				<p>&copy; 2012 <a href="https://github.com/moonwave99">MWLabs</a> | licensed under <a href="http://opensource.org/comment/935">MIT license</a>.</p>
+				<p>Too lazy not to use <a href="http://twitter.github.com/bootstrap/">Bootstrap</a>.</p>
+			</footer>
+
+		</div>
+
+		<script src="//ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+		<script src="js/prettify.js"></script>
+		<script src="js/simple.js"></script>
+		
+		<script>
+
+			$(document).ready(function(){
+
+				// Create a router object:
+				var router = new Router();
+				
+				// Set controllers and actions this simply:
+				router.setControllers({
+
+					// The 'buttons' controllers features 4 actions:
+					buttons : Controller.extend({
+
+						forms : function(form){
+
+							alert('Hello ' + form.name.value + ', I am a bounded form!');
+
+						},
+
+						buttons : function(button){
+
+							alert('I am a bounded button!');
+
+						},
+
+						links : function(link){
+
+							alert('I am a bounded link!');
+
+						},
+
+						clickable : function(clickable){
+
+							alert('I am a bounded clickable element!');
+
+						}
+
+					}),
+
+					// The 'widgets' controllers features a startup action and a fadein action: the former fires the latter
+					widgets : Controller.extend({
+
+						startup : function(element){
+
+							this._super(element);
+
+							router.exec('widgets', 'fadein');
+
+						},
+
+						fadein : function(trigger){
+
+							var self = this;
+
+							$(this._element).css('opacity', 0.2).html('');
+
+							$(this._element).animate({ opacity : '+=0.5' }, 1000, function(){
+
+								$(self._element).html('This action was performed at startup.');
+
+							});
+
+						}
+
+					})
+
+				});
+
+			});
+
+		</script>
+	</body>
 </html>
