@@ -52,13 +52,18 @@
 
 		<div id="main" class="container">
 
-			<h1 class="page-header">simple.js <small>client side <span class="strike">M</span>VC* kept simple.</small></h1>
+			<h1 class="page-header">
+				simple.js <small>client side <span class="strike">M</span>VC* kept simple.</small>
+				<div class="pull-right">
+					<a href="https://github.com/moonwave99/simple.js" class="btn btn-large btn-primary">Fork on Github</a>
+					<a href="src/simple.min.js.zip" class="btn btn-large">Get .zip</a>
+					<a href="src/simple.min.js.tar.gz" class="btn btn-large">Get .tar.gz</a>				
+				</div>
+			</h1>
 
 			<p>A lot of nice JS frameworks blossomed lately - from shiny <a href="http://backbonejs.org/">Backbone</a> to <a href="http://angularjs.org/">Angular</a> to <a href="http://knockoutjs.com/">Knockout</a> - and they are going to get all the scene soon for sure. But sometimes I need a tradeoff solution between a full stack and the $ jungle of messed jQuery calllbacks - think about little enhancements to a basically plain html website like plugin setup, opening modals, handling simple client-side templating.</p>
 			<p>Long story short, I refactored <a href="http://viget.com/inspire/extending-paul-irishs-comprehensive-dom-ready-execution">Jason Garber implementation</a> of <a href="http://paulirish.com/2009/markup-based-unobtrusive-comprehensive-dom-ready-execution/">Paul Irish idea</a>, and here we are. Many thanks to <a href="http://ejohn.org/blog/simple-javascript-inheritance/">John Resig's inheritance snippet</a> as well.</p>
-			<p>
-				<a href="https://github.com/moonwave99/simple.js" class="btn btn-large btn-primary">Fork on Github</a>
-			</p>			
+			
 			<p><small>* The stroke over the M stands for no model handling - stick with backbone.js &amp; friends for it please!</small></p>
 
 			<h2 class="page-header">Live Example</h2>
@@ -89,7 +94,7 @@
 			<h2 class="page-header">Installation and Usage</h2>
 			<p>1. Import good ol' <a href="http://www.jquery.com">jQuery</a> and the script:</p>
 			<pre class="prettyprint linenums lang-html">
-&lt;script src=&quot;https://ajax.googleapis.com/ajax/libs/jquery/x.x.x/jquery.min.js&quot;&gt;&lt;/script&gt;
+&lt;script src=&quot;//ajax.googleapis.com/ajax/libs/jquery/x.x.x/jquery.min.js&quot;&gt;&lt;/script&gt;
 &lt;script src=&quot;js/simple.js&quot;&gt;&lt;/script&gt;</pre>
 
 			<p>2. Define controllers and actions [in a <code>script</code> tag or a separate file better]:</p>
@@ -131,7 +136,8 @@ $(document).ready(function(){
 			<p>You get a reference to the DOM element just clicked as the action parameter [<code>anElement</code> / <code>theElement</code> above] so you can interact with it - for example setting loading status, disabling a button, and so. Notice that when submitting a form, the whole <code>form</code> element is passed and not just the submit button.</p>
 
 			<p><small>* simple.js <a href="http://api.jquery.com/event.preventDefault/">prevents default browser behavior</a>.</small></p>
-
+			<hr/>
+			
 			<h3>Startup Actions</h3>
 			<p>Sometimes you just need to execute an action on document load - for example the setup of a datepicker widget, or a picture carousel: you just add the <code>data-startup</code> attribute to the DOM element you're binding the action to:</p>
 			<pre class="prettyprint linenums lang-html">&lt;div id=&quot;myAwesomeWidget&quot; data-controller=&quot;widgets&quot; data-action=&quot;datepicker&quot; data-startup&gt;&lt;/div&gt;</pre>
@@ -177,7 +183,8 @@ awesomeWidget : Controller.extend({
 ...	</pre>			
 						
 			<p>This is useful when you set up a widget and you need to reference to it again later, decoupling the logic from DOM selectors as much as possible. Of course you are going to perform DOM selections inside your actions, but you can narrow your scope to <code>this._element</code>:</p>
-		
+			<hr/>
+			
 			<h3>Reusing Actions</h3>
 			<p>What about firing actions inside other actions? Just call <code>router.exec()</code>* method:</p>
 			<pre class="prettyprint linenums lang-js">
@@ -192,8 +199,37 @@ someController : Controller.extend({
 ...	</pre>			
 			<p><small>* <i>router</i> is the name you gave to the Router instance in your code.</small></p>
 			<p>Notice that you are passing a different <code>trigger</code> to the action by all chance: if you plan to reuse actions much, you are looking for wider solution for sure.</p>
+			<hr/>			
 			
-			<h2 class="">License</h2>
+			<h3>Denying Actions</h3>
+			<p>Want to stop an element from triggering an action? Just give it the <code>data-disabled</code> attribute.</p>
+			<p>Let's say you want to disable the preview button once you submit a form:</p>
+			<pre class="prettyprint linenums lang-js">
+...
+
+  formAction : function(form){
+	
+    var self = this;
+    $form = $(form);	
+	
+    $.post({
+      url : $form.attr('action'),
+      data : $form.serialize(),
+      success : function(data){
+			
+        $('[data-action="preview"]', self._element).attr('data-disabled', true);
+			
+      }
+    })
+  },
+
+...	</pre>			
+
+			<p>This way any action bound to our preview button won't be fired at all, without messing with such action's inner declaration.</p>
+			<p><strong>Tip</strong>: Style <code>data-disabled</code> elements in order to reflect their behavior.</p>
+			<hr/>
+						
+			<h2>License</h2>
 			<p>Copyright (c) 2012 Diego Caponera</p>
 
 			<p>Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:</p>
