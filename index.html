@@ -212,15 +212,15 @@ someController : Controller.extend({
     var self = this;
     $form = $(form);	
 	
-    $.post({
-      url : $form.attr('action'),
-      data : $form.serialize(),
-      success : function(data){
+    $.post(
+      $form.attr('action'),
+      $form.serialize(),
+      function(data){
 			
         $('[data-action="preview"]', self._element).attr('data-disabled', true);
 			
       }
-    })
+    );
   },
 
 ...	</pre>			
