@@ -102,7 +102,7 @@
 		exec : function(controller, action, element) {
 
 			if ( typeof( $(element).attr('data-disabled') ) == 'undefined' && controller !== "" && this._controllers[controller] && typeof this._controllers[controller][action] == "function" ) {
-	      		this._controllers[controller][action](element);
+	      		this._controllers[controller][action].apply(this._controllers[controller], Array.prototype.slice.call(arguments).slice(2));
 			}
 
 		},
