@@ -76,7 +76,17 @@
 
 (function(){
 
-	this.Controller = Class.extend({
+
+	// Simple = root namespace.
+	var Simple;
+ 
+	if (typeof exports !== 'undefined') {
+    	Simple = exports;
+	} else {
+    	Simple = this.Simple = {};
+	}
+
+	Simple.Controller = Class.extend({
 
 		_element : null,
 		_basePath : '',
@@ -95,7 +105,7 @@
 
 	});
 
-	this.Router = Class.extend({
+	Simple.Router = Class.extend({
 
 		_controllers : [],
 
